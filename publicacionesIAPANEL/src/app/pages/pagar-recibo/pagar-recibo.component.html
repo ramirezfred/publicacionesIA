@@ -1,0 +1,186 @@
+<!-- Include the PayPal JavaScript SDK; replace "test" with your own sandbox Business account app client ID -->
+<!-- <script src="https://www.paypal.com/sdk/js?client-id=AYDm5MoqD21AUPQNoKQSWst_d1L9uB9HuD88Ak_zO_UOBoYKVDvuHtM3vTt7UpFjN0L8vwZ5f0q6J7Ry&currency=USD"></script> -->
+
+<div class="header py-7 py-lg-7" #gradiente>
+  <div class="container">
+    <div class="header-body text-center mb-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6">
+          <h1 class="text-white">Bienvenido!</h1>
+          <!-- <p class="text-lead text-light">Use these awesome forms to login or create new account in your project for free.</p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="separator separator-bottom separator-skew zindex-100">
+    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+    </svg>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container mt--8 ">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="card bg-secondary shadow border-0">
+        <!-- <div class="card-header bg-transparent pb-5">
+          <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
+          <div class="btn-wrapper text-center">
+            <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
+              <span class="btn-inner--icon"><img src="../assets/img/icons/common/github.svg"></span>
+              <span class="btn-inner--text">Github</span>
+            </a>
+            <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
+              <span class="btn-inner--icon"><img src="../assets/img/icons/common/google.svg"></span>
+              <span class="btn-inner--text">Google</span>
+            </a>
+          </div>
+        </div> -->
+        <div class="card-body">
+          
+          <h6 class="heading-small text-muted mb-2">Información del cliente</h6>
+          <div class="pl-md-4">
+            <div class="row">
+              <div class="col-md-4">
+                <p><strong>Nombre:</strong> {{nombre}}</p>
+              </div>
+            
+              <div class="col-md-4">
+                <p><strong>Teléfono:</strong> {{telefono}}</p>
+              </div>
+            
+              <div class="col-md-4">
+                <p><strong>Email:</strong> {{email}}</p>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-0" />
+          <h6 class="heading-small text-muted mb-2">Información del recibo</h6>
+          <div class="pl-md-4">
+            <div class="row">
+              <div class="col-md-4">
+                <p><strong>Recibo:</strong> {{recibo}}</p>
+              </div>
+              <div class="col-md-4">
+                <p><strong>Fecha:</strong> {{fecha_recibo}}</p>
+              </div>
+              <div class="col-md-4">
+                <p><strong>Monto ($MXN):</strong> {{monto | number: '1.2-2'}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p><strong>Descripción:</strong> {{descripcion}}</p>
+              </div>
+            </div>
+           
+            <div class="row">             
+            
+              <div class="col-md-4">
+                <p><strong>Estado:</strong> {{estado}}</p>
+              </div>
+
+              <div class="col-md-4">
+                <p><strong>Fecha de Pago:</strong> {{fecha_pago}}</p>
+              </div>
+            
+              <div class="col-md-4">
+                <p><strong>Método de Pago:</strong> {{metodo}}</p>
+              </div>
+              <!-- <div class="col-lg-6">
+                <a class="btn btn-sm btn-primary" style="margin-top: 38px;" (click)="pagar()">Pagar</a>
+              </div> -->
+            </div>
+
+          </div>
+
+
+          <hr class="my-0" />
+          <div class="row">
+              <div class="col-md-6">
+                <h6 class="heading-small text-muted mb-2">Depositar a</h6>
+                <div class="pl-md-4">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p><strong>Banco:</strong> {{banco}}</p>
+                    </div>
+                    <div class="col-md-12">
+                      <p><strong>Cuenta:</strong> {{cuenta}}</p>
+                    </div>
+                    <div class="col-md-12">
+                      <p><strong>Beneficiario:</strong> {{beneficiario}}</p>
+                    </div>
+                  </div> 
+                </div>      
+              </div>
+              <div class="col-md-6">
+                <h6 class="heading-small text-muted mb-4">PayPal</h6>
+                <div class="pl-md-4">
+                  <div class="row">
+                    <div class="col-md-12">
+                                                      
+                      <div [hidden]="estado === 'Por Aprobar' || estado === 'Pagado' " id="paypal-button" class="align-content-between align-content-center"></div>
+                      
+                    </div>
+                  </div>
+                </div> 
+
+              </div>
+            </div>
+          
+        
+          <hr class="my-0" />
+          <h6 class="heading-small text-muted mb-2">Comprobante de pago</h6>
+          <div class="pl-md-4">
+            <div class="row">
+              <div class="col-md-12">
+                
+                <div class="form-group">
+                  <!--- DEFINIER COMPONENTE DE FILE-->
+                  <div class="wrapper">
+                    <div class="position-relative">
+                        <h3 class="etiqueta">Subir imagen</h3>
+                        <input class="input-file" (change)="capturarFile($event)" type="file" accept="image/*" [disabled]="estado !== 'No Pagado' || !existe">
+                        <div class="preview-img" *ngIf="previsualizacion">
+                            <button class="clear-image" type="button" (click)="clearImage()" [disabled]="estado !== 'No Pagado' ">Clear</button>
+                            <img  [src]="previsualizacion" alt="">
+                        </div>
+                      
+                        <!-- <div class="p-1">
+                            <small>Se aceptan archivos imágenes de tipo .png</small>
+                        </div>
+                        <div class="wrapper-button" *ngIf="previsualizacion && estado === 'No Pagado' ">
+                            <button type="button" class="button-subir" [disabled]="loading" (click)="subirArchivo()">
+                                {{(loading) ? 'Cargando.....' : 'Subir Archivo'}}
+                            </button>
+                        </div>
+                        <br> -->
+                        <!-- <div class="wrapper-button" *ngIf="previsualizacion">
+                          <button type="button" class="button-subir" [disabled]="loading" (click)="subirArchivoV2()">
+                              {{(loading) ? 'Cargando.....' : 'Subir Archivo V2'}}
+                          </button>
+                        </div> -->
+
+                    </div>
+                  
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            
+            
+          </div>
+            
+            <div class="text-center">
+              <a class="btn btn-sm btn-primary" (click)="pagar( )">Pagar</a>
+            </div>
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

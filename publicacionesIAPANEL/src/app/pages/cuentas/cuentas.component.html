@@ -1,0 +1,190 @@
+<div class="header pb-8 pt-5 pt-md-8" #gradiente >
+  
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div [hidden]="!lista"class="row">
+    <div class="col">
+      <div class="card shadow">
+        <!-- <div class="card-header border-0">
+          <h3 class="mb-0">Lista de Negocios</h3>
+        </div> -->
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Lista de Cuentas</h3>
+            </div>
+            <div class="col-4 text-right">
+              <a class="btn btn-sm btn-primary" (click)="aCrear()">Crear</a>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Familia</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listado | slice:desde1:hasta1; let i = index">
+                <td>
+                  {{item.codigo}}
+                </td>
+                <td>
+                  {{item.nombre}}
+                </td>
+                <td>
+                  {{item.familia.nombre}}
+                </td>
+                <td class="text-right">
+                  <div ngbDropdown placement="bottom-right">
+                    <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                    <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                      <a class="dropdown-item" href="javascript:void(0)" (click)="aEditar(item, i)">Editar</a>
+                      <a class="dropdown-item" href="javascript:void(0)" (click)="eliminar( item, i )">Eliminar</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4">
+          <br>
+          <mat-paginator #paginador1 [length]="listado.length" [pageSize]="pageSize1" (page)="cambiarpagina1($event)">
+          </mat-paginator> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div [hidden]="lista" class="row">
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-12">
+              <h3 class="mb-0">Cuentas</h3>
+            </div>
+            <!-- <div class="col-4 text-right">
+              <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+            </div> -->
+          </div>
+        </div>
+        <div class="card-body">
+          <form autocomplete="off" [formGroup]="myForm" >
+            <h6 class="heading-small text-muted mb-4">Información de Cuenta</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-email">Código</label>
+                    <input type="text" id="input-codigo" class="form-control" placeholder="Código" formControlName="codigo" [class.is-invalid]="codigoNoValido">
+                    <small *ngIf="codigoNoValido" class="text-danger">
+                      Ingrese 5 letras (como mínimo)
+                    </small>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-nombre">Nombre</label>
+                    <input type="text" id="input-nombre" class="form-control" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido">
+                    <small *ngIf="nombreNoValido" class="text-danger">
+                      Ingrese 2 letras (como mínimo)
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-familia">Familia</label>
+                    <select class="form-control" id="input-familia" formControlName="familia_id" [class.is-invalid]="familiaNoValido">
+                      <option disabled selected>Seleccione una familia</option>
+                      <option *ngFor="let familia of familias" [value]="familia.id">{{familia.nombre}}</option>
+                    </select>
+                    <small *ngIf="familiaNoValido" class="text-danger">
+                      Campo requerido
+                    </small>
+                  </div>
+                </div>
+                <div class="col-lg-3" style="margin-top: 32px;">
+                  <a class="btn btn-outline-danger" (click)="aCrearFamilia(modalFamilia)" ngbTooltip="{{'Agregar familia'}}"><i class="ni ni-fat-add"></i></a>
+                </div>
+                <div class="col-lg-3" style="margin-top: 32px;">
+                  <a class="btn btn-outline-danger" (click)="aEliminarFamilia()" ngbTooltip="{{'Eliminar familia'}}"><i class="ni ni-basket"></i></a>
+                </div>
+              </div>
+
+            </div>
+            
+          </form>
+
+          <br>
+          <a class="btn btn-info" (click)="atras()">Atrás</a>
+          <a class="btn btn-primary" (click)="guardar()">Aceptar</a>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- <hr>
+    <pre>
+      Estado del formulario: {{ myForm.valid }}
+      <br>
+      Status: {{ myForm.status }}
+    </pre>
+
+    <pre>
+
+      {{ myForm.value | json }}
+
+    </pre>
+ -->
+  </div>
+
+</div>
+
+<ng-template #modalFamilia let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"><i class="ni ni-settings-gear-65"> Nueva familia</i></h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form autocomplete="off" #forma="ngForm">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <label class="form-control-label" for="input-familia">Nombre</label>
+            <input type="text" id="input-familia" class="form-control" placeholder="Nombre" 
+            name="familia"
+            [class.is-invalid]="familia.invalid && familia.touched"
+            required
+            minlength="3" 
+            [(ngModel)]="familia_nombre"
+            #familia="ngModel">
+            <small *ngIf="familia.invalid && familia.touched"
+                class="form-text text-danger">Campo requerido</small>
+          </div>
+          
+        </div>
+      </div>
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-info" (click)="modal.close('Save click')">Atrás</button>
+    <button type="button" class="btn btn-sm btn-primary" (click)="crearFamilia(forma)">Aceptar</button>
+  </div>
+</ng-template>
+
+

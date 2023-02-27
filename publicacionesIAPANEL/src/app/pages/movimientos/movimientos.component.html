@@ -1,0 +1,543 @@
+<div class="header pb-8 pt-5 pt-md-8" #gradiente >
+  <div [hidden]="!lista" class="container-fluid mt--4">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-stats mb-2 mb-xl-0">
+            <div class="card-body">
+              <form autocomplete="off" [formGroup]="myFormFilter" >
+                <div class="row row_0">
+                  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col_0">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-familia">Familia</label>
+                      <select class="form-control" id="input-familia" formControlName="familia_id">
+                        <option disabled selected>Seleccione</option>
+                        <option *ngFor="let familia of familias" [value]="familia.id">{{familia.nombre}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col_0">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-cuenta">Cuenta</label>
+                      <select class="form-control" id="input-cuenta" formControlName="cuenta_id">
+                        <option disabled selected>Seleccione</option>
+                        <option *ngFor="let cuenta of cuentas" [value]="cuenta.id">{{cuenta.codigo}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col_0">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-obra">Obra</label>
+                      <select class="form-control" id="input-obra" formControlName="obra_id">
+                        <option disabled selected>Seleccione</option>
+                        <option *ngFor="let obra of obras" [value]="obra.id">{{obra.nombre}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col_0">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-partida">Partida</label>
+                      <select class="form-control" id="input-partida" formControlName="partida_id">
+                        <option disabled selected>Seleccione</option>
+                        <option *ngFor="let partida of partidas" [value]="partida.id">{{partida.nombre}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="row row_0">
+                  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col_0">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-concepto">Concepto</label>
+                      <input type="text" id="input-concepto" class="form-control" placeholder="Concepto" formControlName="concepto">
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col_0">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-tipo">Tipo</label>
+                      <select class="form-control" id="input-tipo" formControlName="tipo">
+                        <option disabled selected>Seleccione</option>
+                        <option *ngFor="let tipo of tipos" [value]="tipo.id">{{tipo.nombre}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col_0">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-forma">Forma de pago</label>
+                      <select class="form-control" id="input-forma" formControlName="forma">
+                        <option disabled selected>Seleccione</option>
+                        <option *ngFor="let forma of formas" [value]="forma.id">{{forma.nombre}}</option>
+                      </select>
+                    </div>
+                    
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col_0">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-nro">Factura</label>
+                      <input type="text" id="input-nro" class="form-control" placeholder="Factura" formControlName="nro">
+                    </div>
+                  </div>
+                </div>
+                <div class="row row_0">
+                  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col_0">
+                    <!-- <div class="form-group">
+                      <label class="form-control-label" for="input-fecha_i">Fecha inicio</label>
+                      <input type="text" id="input-fecha_i" class="form-control" placeholder="Fecha inicio" formControlName="fecha_i">
+                    </div> -->
+                    <form>
+                      
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-fecha_i">Fecha desde</label>
+                        <div class="input-group">
+                          <input class="form-control" placeholder="dd/mm/yyyy"
+                                  #c1="ngModel" [(ngModel)]="model1" name="d1" ngbDatepicker #d1="ngbDatepicker" #prueba>
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar fecha" (click)="d1.toggle()" type="button"></button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col_0">
+                    <!-- <div class="form-group">
+                      <label class="form-control-label" for="input-fecha_f">Fecha fin</label>
+                      <input type="text" id="input-fecha_f" class="form-control" placeholder="Fecha fin" formControlName="fecha_f">
+                    </div> -->
+                    <form>
+                      
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-fecha_f">Fecha hasta</label>
+                        <div class="input-group">
+                          <input class="form-control" placeholder="dd/mm/yyyy"
+                                  #c2="ngModel" [(ngModel)]="model2" name="d2" ngbDatepicker #d2="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar fecha" (click)="d2.toggle()" type="button"></button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col_0">
+                    <a class="btn btn-sm btn-primary" style="margin-top: 38px;" (click)="filtrar(c1,c2)">Buscar</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div [hidden]="!lista" class="row">
+    <div class="col">
+      <div class="card shadow">
+        <!-- <div class="card-header border-0">
+          <h3 class="mb-0">Lista de Negocios</h3>
+        </div> -->
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-6">
+              <h3 class="mb-0">Lista de Movimientos</h3>
+            </div>
+            <div class="col-6 text-right">
+              <a *ngIf="listado && listado.length > 0" class="btn btn-outline-danger btn-sm" (click)="print()" ngbTooltip="{{'Descargar PDF'}}"><i class="far fa-file-pdf"></i> PDF</a>
+              <!-- <a *ngIf="listado && listado.length > 0" class="btn btn-outline-success btn-sm" (click)="saveFile()" ngbTooltip="{{'Descargar Excel'}}"><i class="far fa-file-excel"></i> Excel</a> -->
+              <a *ngIf="listado && listado.length > 0" class="btn btn-outline-success btn-sm" (click)="exportExcel()" ngbTooltip="{{'Descargar Excel'}}"><i class="far fa-file-excel"></i> Excel</a>
+              <a class="btn btn-sm btn-primary" (click)="aCrear()">Crear</a>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Factura #</th>
+                <th scope="col">Cuenta #</th>
+                <th scope="col">Cuenta-Famila</th>
+                <th scope="col">Obra</th>
+                <th scope="col">Concepto</th>
+                <th scope="col">Forma</th>
+                <th scope="col">Partida</th>
+                <th scope="col">Monto</th>
+                <th scope="col">Saldo</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listado | slice:desde1:hasta1; let i = index">
+                <td>
+                  {{item.fecha}}
+                </td>
+                <td>
+                  {{item.nro}}
+                </td>
+                <td>
+                  {{item.cuenta.codigo}}
+                </td>
+                <td>
+                  <!-- {{item.cuenta.familia.nombre}} -->
+                  {{item.familia.nombre}}
+                </td>
+                <td>
+                  {{item.obra.nombre}}
+                </td>
+                <td>
+                  {{item.concepto}}
+                </td>
+                <td>
+                  {{item.forma_nombre}}
+                </td>
+                <td>
+                  {{item.partida.nombre}}
+                </td>
+                <td [ngStyle]="{'color': item.tipo==2 ? 'red' : '' }">
+                  <div *ngIf="item.tipo==1">{{item.monto | number: '1.2-2'}}</div>
+                  <div *ngIf="item.tipo==2">-{{item.monto | number: '1.2-2'}}</div>
+                </td>
+                <td>
+                  {{item.saldo | number: '1.2-2'}}
+                </td>
+                <td class="text-right">
+                  <div ngbDropdown placement="bottom-right">
+                    <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                    <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                      <a class="dropdown-item" href="javascript:void(0)" (click)="aEditar(item, i)">Editar</a>
+                      <a class="dropdown-item" href="javascript:void(0)" (click)="eliminar( item, i )">Eliminar</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="11"></td>
+              </tr>
+              <tr>
+                <td colspan="9" class="text-right"><strong>Ingresos</strong></td>
+                <td>{{ingresos | number: '1.2-2'}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="9" class="text-right"><strong>Egresos</strong></td>
+                <td>{{egresos | number: '1.2-2'}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="9" class="text-right"><strong>Saldo</strong></td>
+                <td>{{total | number: '1.2-2'}}</td>
+                <td></td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4">
+          <br>
+          <mat-paginator #paginador1 [length]="listado.length" [pageSize]="pageSize1" (page)="cambiarpagina1($event)">
+          </mat-paginator> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div [hidden]="lista" class="row">
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-12">
+              <h3 class="mb-0">Movimiento</h3>
+            </div>
+            <!-- <div class="col-4 text-right">
+              <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+            </div> -->
+          </div>
+        </div>
+        <div class="card-body">
+          <form autocomplete="off" [formGroup]="myForm" >
+            <h6 class="heading-small text-muted mb-4">Información de Movimiento</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <!-- <div class="form-group">
+                    <label class="form-control-label" for="input-fecha">Fecha</label>
+                    <input type="text" id="input-fecha" class="form-control" placeholder="Fecha" formControlName="fecha" [class.is-invalid]="fechaNoValido">
+                    <small *ngIf="fechaNoValido" class="text-danger">
+                      Campo requerido
+                    </small>
+                  </div> -->
+                  <form>
+                      
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-fecha">Fecha</label>
+                      <div class="input-group">
+                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                #c3="ngModel" [(ngModel)]="model3" name="d3" ngbDatepicker #d3="ngbDatepicker">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary calendar fecha" (click)="d3.toggle()" type="button"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-tipo">Tipo</label>
+                    <select class="form-control" id="input-tipo" formControlName="tipo" [class.is-invalid]="tipoNoValido">
+                      <option disabled selected>Seleccione un tipo</option>
+                      <option *ngFor="let tipo of tipos" [value]="tipo.id">{{tipo.nombre}}</option>
+                    </select>
+                    <small *ngIf="tipoNoValido" class="text-danger">
+                      Campo requerido
+                    </small>  
+                  </div>
+                </div>
+                
+              </div>
+              
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-concepto">Concepto</label>
+                    <input type="text" id="input-concepto" class="form-control" placeholder="Concepto" formControlName="concepto" [class.is-invalid]="conceptoNoValido">
+                    <small *ngIf="conceptoNoValido" class="text-danger">
+                      Campo requerido
+                    </small>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-nro">N. Factura</label>
+                    <input type="text" id="input-nro" class="form-control" placeholder="N. Factura" formControlName="nro" [class.is-invalid]="nroNoValido">
+                    <small *ngIf="nroNoValido" class="text-danger">
+                      Campo requerido
+                    </small>
+                  </div>
+                </div>
+                
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-monto">Monto</label>
+                    <input type="number" id="input-monto" class="form-control" placeholder="Monto" formControlName="monto" [class.is-invalid]="montoNoValido">
+                    <small *ngIf="montoNoValido" class="text-danger">
+                      Campo requerido
+                    </small>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-forma">Forma</label>
+                    <select class="form-control" id="input-forma" formControlName="forma" [class.is-invalid]="formaNoValido">
+                      <option disabled selected>Seleccione una forma</option>
+                      <option *ngFor="let formaa of formas" [value]="formaa.id">{{formaa.nombre}}</option>
+                    </select>
+                    <small *ngIf="formaNoValido" class="text-danger">
+                      Campo requerido
+                    </small>  
+                  </div>
+                </div>
+                
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-cuenta">Cuenta</label>
+                    <select class="form-control" id="input-cuenta" formControlName="cuenta_id" [class.is-invalid]="cuenta_idNoValido">
+                      <option disabled selected>Seleccione una cuenta</option>
+                      <option *ngFor="let cuenta of cuentas" [value]="cuenta.id">{{cuenta.nombre}}</option>
+                    </select>
+                    <small *ngIf="cuenta_idNoValido" class="text-danger">
+                      Campo requerido
+                    </small>  
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-familia">Familia</label>
+                    <select class="form-control" id="input-familia" formControlName="familia_id" [class.is-invalid]="familia_idNoValido">
+                      <option disabled selected>Seleccione una familia</option>
+                      <option *ngFor="let familia of familias" [value]="familia.id">{{familia.nombre}}</option>
+                    </select>
+                    <small *ngIf="familia_idNoValido" class="text-danger">
+                      Campo requerido
+                    </small>  
+                  </div>
+                </div>
+                
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-obra">Obra</label>
+                    <select class="form-control" id="input-obra" formControlName="obra_id" [class.is-invalid]="obra_idNoValido">
+                      <option disabled selected>Seleccione una obra</option>
+                      <option *ngFor="let obra of obras" [value]="obra.id">{{obra.nombre}}</option>
+                    </select>
+                    <small *ngIf="obra_idNoValido" class="text-danger">
+                      Campo requerido
+                    </small>  
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-partida">Partida</label>
+                    <select class="form-control" id="input-partida" formControlName="partida_id" [class.is-invalid]="partida_idNoValido">
+                      <option disabled selected>Seleccione una partida</option>
+                      <option *ngFor="let partidaa of partidas" [value]="partidaa.id">{{partidaa.nombre}}</option>
+                    </select>
+                    <small *ngIf="partida_idNoValido" class="text-danger">
+                      Campo requerido
+                    </small>  
+                  </div>
+                </div>
+                
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-estimacion">N. de Estimación</label>
+                    <input type="text" id="input-estimacion" class="form-control" placeholder="N. de Estimación" formControlName="estimacion" [class.is-invalid]="estimacionNoValido">
+                    <small *ngIf="estimacionNoValido" class="text-danger">
+                      Campo requerido
+                    </small>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-unidad">Unidad</label>
+                    <input type="text" id="input-unidad" class="form-control" placeholder="Unidad" formControlName="unidad" [class.is-invalid]="unidadNoValido">
+                    <small *ngIf="unidadNoValido" class="text-danger">
+                      Campo requerido
+                    </small>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-cantidad">Cantidad</label>
+                    <input type="number" id="input-cantidad" class="form-control" placeholder="Cantidad" formControlName="cantidad" [class.is-invalid]="cantidadNoValido">
+                    <small *ngIf="cantidadNoValido" class="text-danger">
+                      Campo requerido
+                    </small>
+                  </div>
+                </div>
+                
+              </div>
+
+            </div>
+            
+          </form>
+
+          <br>
+          <a class="btn btn-info" (click)="atras()">Atrás</a>
+          <a class="btn btn-primary" (click)="guardar(c3)">Aceptar</a>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- <hr>
+    <pre>
+      Estado del formulario: {{ myForm.valid }}
+      <br>
+      Status: {{ myForm.status }}
+    </pre>
+
+    <pre>
+
+      {{ myForm.value | json }}
+
+    </pre>
+ -->
+  </div>
+
+</div>
+
+<div id='exportable' [hidden]="true" #content_print style="width: 800px; margin: auto;">
+  <div class="table-responsive">
+    <table class="table align-items-center table-flush">
+      <thead class="thead-light">
+        <tr style="font-size: 10px;height: 25px;">
+          <th scope="col">FECHA</th>
+          <th scope="col">INGRESO</th>
+          <th scope="col">EGRESO</th>
+          <th scope="col">SALDO</th>
+          <th scope="col">FORMA DE PAGO</th>
+          <th scope="col">NO. DE ESTIMACION</th>
+          <th scope="col">OBRA</th>
+          <th scope="col">PARTIDA</th>
+          <th scope="col">CUENTA</th>
+          <th scope="col">FAMILIA</th>
+          <th scope="col">CONCEPTO</th>
+          <th scope="col">UNIDAD</th>
+          <th scope="col">CANTIDAD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listado" style="font-size: 10px;height: 25px;">
+          <td>
+            {{item.fecha}}
+          </td>
+          <td>
+            {{item.ingreso | number: '1.2-2'}}
+          </td>
+          <td>
+            {{item.egreso | number: '1.2-2'}}
+          </td>
+          <td>
+            {{item.saldo | number: '1.2-2'}}
+          </td>
+          <td>
+            {{item.forma_nombre}}
+          </td>
+          <td>
+            {{item.estimacion}}
+          </td>
+          <td>
+            {{item.obra.nombre}}
+          </td>
+          <td>
+            {{item.partida.nombre}}
+          </td>
+          <td>
+            <!-- {{item.cuenta.codigo}} -->
+            {{item.cuenta.nombre}}
+          </td>
+          <td>
+            <!-- {{item.cuenta.familia.nombre}} -->
+            {{item.familia.nombre}}
+          </td>
+          <td>
+            {{item.concepto}}
+          </td>
+          <td>
+            {{item.unidad}}
+          </td>
+          <td>
+            {{item.cantidad | number: '1.2-2'}}
+          </td>
+        </tr>
+        <tr style="font-size: 10px;height: 25px;">
+          <td><strong>TOTALES</strong></td>
+          <td>{{ingresos | number: '1.2-2'}}</td>
+          <td>{{egresos | number: '1.2-2'}}</td>
+          <td>{{total | number: '1.2-2'}}</td>
+          <td colspan="8"></td>
+          <td>{{cantidad | number: '1.2-2'}}</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
